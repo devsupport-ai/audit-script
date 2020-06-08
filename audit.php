@@ -1,14 +1,14 @@
 <?php
 
-$hostname = "localhost:3326";
-$dbname = "daptin";
-$username = "root";
-$password = "parth123";
+$hostname = "{{=it.dbHostName}}";
+$dbname = "{{=it.dbName}}";
+$username = "{{=it.dbUserName}}";
+$password = "{{=it.dbPassword}}";
 
-$transaction_table = "world";
+$transaction_table = "{{=it.tableName}}";
 
-$orderIdColumn = "created_at";
-$amountColumn = "table_name";
+$orderIdColumn = "{{=it.orderIdColumnName}}";
+$amountColumn = "{{=it.amountColumnName}}";
 
 // Create connection
 $conn = new mysqli($hostname, $username, $password, $dbname);
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
         }
     }
 } else {
-    echo "Audit failed";
+    echo "Table or column not found. Audit failed";
 }
 $conn->close();
 ?>

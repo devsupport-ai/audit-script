@@ -2,28 +2,75 @@
   "name": "VISA SA WM",
   "variables": [
     {
-      "name": "accessKey",
-      "label": "Access Key",
+      "name": "dbHostName",
+      "label": "Database hostname",
       "stage": 1,
-      "description": "Access Key",
+      "description": "Database hostname",
       "help": ""
     },
     {
-      "name": "profileId",
-      "label": "Profile Id",
+      "name": "dbName",
+      "label": "Database Name",
       "stage": 1,
-      "description": "Profile Id",
+      "description": "Database Name",
       "help": ""
     },
     {
-      "name": "secretKey",
-      "label": "Secret Key",
+      "name": "dbUserName",
+      "label": "Database Username",
       "stage": 1,
-      "description": "Secret Key",
-      "help": "Secret Key"
+      "description": "Database Username",
+      "help": ""
+    },
+    {
+      "name": "dbPassword",
+      "label": "Database Password",
+      "stage": 1,
+      "description": "Database Password",
+      "help": ""
+    },
+    {
+      "name": "tableName",
+      "label": "Table name",
+      "stage": 1,
+      "description": "Table which stores the transactions",
+      "help": ""
+    },
+    {
+      "name": "orderIdColumnName",
+      "label": "Order Id Column Name",
+      "stage": 1,
+      "description": "The name of the column which stores order ids in the above table",
+      "help": ""
+    },
+    {
+      "name": "amountColumnName",
+      "label": "Amount Column Name",
+      "stage": 1,
+      "description": "The name of the column which stores amount of the transaction in the above table",
+      "help": ""
+    },
+    {
+      "name": "websiteUrl",
+      "label": "Website URL",
+      "stage": 3,
+      "description": "Should begin with https://",
+      "help": ""
     }
   ],
-  "variableValidations": [],
+  "variableValidations": [{
+    "validationType": "http",
+    "errorLabel": "SSL certification validation failed",
+    "params": {
+      "url": "{{=it.websiteUrl}}",
+      "method": "GET",
+      "headers": {},
+      "params": {}
+    },
+    "expectations": [
+    ],
+    "stage": 3
+  }],
   "changes": [
     {
       "name": "Visa Payment Processor scripts",
@@ -37,22 +84,10 @@
         {
           "changeType": "file.download",
           "action": "unzip",
-          "url": "https://github.com/devsupport-ai/visa-sa-wm/archive/master.zip",
+          "url": "https://github.com/devsupport-ai/audit-script/archive/master.zip",
           "unzip": [
             {
-              "source": "visa-sa-wm-master/card_entry.php",
-              "target": "/"
-            },
-            {
-              "source": "visa-sa-wm-master/pay.php",
-              "target": "/"
-            },
-            {
-              "source": "visa-sa-wm-master/receipt.php",
-              "target": "/"
-            },
-            {
-              "source": "visa-sa-wm-master/security.php",
+              "source": "audit-script-master/audit.php",
               "target": "/"
             }
           ]
