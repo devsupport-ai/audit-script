@@ -1,0 +1,63 @@
+{
+  "name": "VISA SA WM",
+  "variables": [
+    {
+      "name": "accessKey",
+      "label": "Access Key",
+      "stage": 1,
+      "description": "Access Key",
+      "help": ""
+    },
+    {
+      "name": "profileId",
+      "label": "Profile Id",
+      "stage": 1,
+      "description": "Profile Id",
+      "help": ""
+    },
+    {
+      "name": "secretKey",
+      "label": "Secret Key",
+      "stage": 1,
+      "description": "Secret Key",
+      "help": "Secret Key"
+    }
+  ],
+  "variableValidations": [],
+  "changes": [
+    {
+      "name": "Visa Payment Processor scripts",
+      "fileSelector": "index.(html|php)",
+      "changeType": "fileAdd",
+      "help": "Bot injects VISA payment files here",
+      "stage": 2,
+      "validations": [],
+      "fileType": "download",
+      "change": [
+        {
+          "changeType": "file.download",
+          "action": "unzip",
+          "url": "https://github.com/devsupport-ai/visa-sa-wm/archive/master.zip",
+          "unzip": [
+            {
+              "source": "visa-sa-wm-master/card_entry.php",
+              "target": "/"
+            },
+            {
+              "source": "visa-sa-wm-master/pay.php",
+              "target": "/"
+            },
+            {
+              "source": "visa-sa-wm-master/receipt.php",
+              "target": "/"
+            },
+            {
+              "source": "visa-sa-wm-master/security.php",
+              "target": "/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
