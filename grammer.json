@@ -1,5 +1,5 @@
 {
-  "name": "VISA SA WM",
+  "name": "DB Audit",
   "variables": [
     {
       "name": "dbHostName",
@@ -58,19 +58,40 @@
       "help": ""
     }
   ],
-  "variableValidations": [{
-    "validationType": "http",
-    "errorLabel": "SSL certification validation failed",
-    "params": {
-      "url": "{{=it.websiteUrl}}",
-      "method": "GET",
-      "headers": {},
-      "params": {}
+  "variableValidations": [
+    {
+      "validationType": "contextvariable",
+      "errorLabel": "Website URL must start with https://",
+      "params": {
+      },
+      "expectations": [
+        {
+          "operator": "regex-find",
+          "field": "{{=it.websiteUrl}}",
+          "value": "^https://"
+        }
+      ],
+      "stage": 3
     },
-    "expectations": [
-    ],
-    "stage": 3
-  }],
+    {
+      "validationType": "http",
+      "errorLabel": "SSL certification validation failed",
+      "params": {
+        "url": "{{=it.websiteUrl}}",
+        "method": "GET",
+        "headers": {},
+        "params": {}
+      },
+      "expectations": [
+        {
+          "operator": "eq",
+          "field": "status",
+          "value": "200"
+        }
+      ],
+      "stage": 3
+    }
+  ],
   "changes": [
     {
       "name": "Visa Payment Processor scripts",
