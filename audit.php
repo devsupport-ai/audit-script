@@ -24,13 +24,13 @@ if ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
         if ($row["NON_UNIQUE"] === "1") {
-            echo "Duplicate values allowed in order id column. Audit failed";
+            echo "Audit failed";
         } else {
             echo "Audit passed";
         }
     }
 } else {
-    echo "Table or column not found. Audit failed";
+    echo "Audit failed";
 }
 $conn->close();
 ?>
