@@ -24,13 +24,13 @@ if ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
         if ($row["NON_UNIQUE"] === "1") {
-            echo "Audit failed";
+            echo "Audit failed\n";
         } else {
-            echo "Audit passed";
+            echo "Audit passed\n";
         }
     }
 } else {
-    echo "Audit failed";
+    echo "Audit failed\n";
 }
 $conn->close();
 ?>
